@@ -1,0 +1,77 @@
+<div class="content">
+  <div class="jumbotron text-center bg-secondary">
+    <h2 style="color: white;">Pets Available for Adoption Near You</h2>
+  </div>
+
+  <div class="row text-center">
+    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+      <div class="col-lg-10 col-md-10 col-sm-10">
+        <!-- Card deck -->
+        <div class="card-deck">
+
+          <!-- Card -->
+          <div *ngFor="let item of dogsImageUrl; let i = index; trackBy: trackByFn" (deferLoad)="item.show = true" style="padding:20px;">
+            <ng-container *ngIf="item.show">
+
+              <!--Card image-->
+              <div class="text-center">
+                <img
+                  class="w3-circle w3-margin-top imgThumb"
+                  [src]="item.url"
+                  alt="{{item.name}}"
+                  (click)="showDogModal(item.url, item.name)"
+                >
+                <a href="#!">
+                  <div class="mask rgba-white-slight"></div>
+                </a>
+              </div>
+
+              <!--Card content-->
+              <div class="card-body text-center">
+
+                <!--Title-->
+                <div class="puppy_name">{{item.name}}</div>
+                <div class="puppy_details" >{{item.breed}}</div>
+                <div class="puppy_details" >{{item.gender}}</div>
+                <!--Text-->
+                <button
+                  (click)="goToPets()"
+                  type="button"
+                  class="btn btn-md btn-warning"
+                >
+                  <i class="fa fa-paw black-text right_10_padding mr-10" aria-hidden="true"></i>
+                  <span style="color:white;">Adopt Me Now</span>
+                </button>
+
+              </div>
+            </ng-container>
+          </div>
+           <!-- Card -->
+        </div>
+        <!-- Card deck -->
+
+      </div>
+      <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    </div>
+
+  <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+    <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+    <div class="w3-modal-content w3-animate-zoom">
+      <div class="modal-header ">
+            <div style="float:left">
+            <H1 class="center">{{dogName}}</H1>
+            </div>
+          <div>
+            <i class="fa fa-times-circle red-text" style="font-size:40pt !important" aria-hidden="true"></i>
+          </div>
+    </div>
+    <div class="w3-modal-content">
+      <img [src]="dogImageUrl" style="width:100%;">
+    </div>
+    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+      <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-block yellow-adopt-btn">
+        <i class="fa fa-paw black-text right_10_padding mr-10" aria-hidden="true"></i><span style="color:white; font-size:14pt;">ADOPT ME NOW</span>
+      </button>
+    </div>
+  </div>
+</div>

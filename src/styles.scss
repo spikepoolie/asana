@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+$content_width: (100% / 2);
+$text_center: center;
+
+.mywidth{
+  width: $content_width;
+}
+
+.content {
+  background: white;
+  padding: 10px;
+  margin-top:20px;
+}
+
+.bodyTopMargin {
+  margin-top: 30px !important;
+}
+
+.align-text{
+  text-align: $text_center
+}
+
+.background{
+  background-color: #F7F7F7;
+}
+
+.right_10_padding {
+  margin-right: 10px;
+}

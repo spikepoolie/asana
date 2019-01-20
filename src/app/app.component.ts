@@ -1,4 +1,6 @@
+
 import { Component } from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'PetAdoption';
+  dogsJson = [];
+  todayDate = new Date();
+  currentyear: number = this.todayDate.getFullYear();
+
+  constructor() {
+
+
+  }
 }
