@@ -7,12 +7,14 @@ import DogsJson from '../../../assets/data/dogs.json';
   templateUrl: './pets.component.html',
   styleUrls: ['./pets.component.scss']
 })
+
+
 export class PetsComponent implements OnInit {
   dogsJson = [];
   dogImageUrl = '';
   dogsImageUrl = [];
   dogName = '';
-  myscreenHeight = 0;
+
 
   @ViewChild('basicModal') public basicModal: ModalDirective;
   public isModalShown = false;
@@ -36,9 +38,7 @@ export class PetsComponent implements OnInit {
     }
    }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   showDogModal(img, dognameselected) {
     this.dogImageUrl = img;
@@ -51,18 +51,9 @@ export class PetsComponent implements OnInit {
     return index; // or item.id
   }
 
-  public showModal(editMode): void {
-
-    this.isModalShown = true;
-  }
-
-  public hideModal(): void {
-    this.basicModal.hide();
-  }
-
-  public onHidden(): void {
-    this.isModalShown = false;
-  }
+ HideModal() {
+   document.getElementById('modal01').style.display = 'none';
+ }
 
 
 }

@@ -1,8 +1,27 @@
 <div class="content">
   <div class="jumbotron text-center bg-secondary">
     <h2 style="color: white;">Pets Available for Adoption Near You</h2>
-  </div>
 
+  </div>
+  <div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="button-group">
+            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span> <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 1</a></li>
+              <li><a href="#" class="small" data-value="option2" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 2</a></li>
+              <li><a href="#" class="small" data-value="option3" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 3</a></li>
+              <li><a href="#" class="small" data-value="option4" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 4</a></li>
+              <li><a href="#" class="small" data-value="option5" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 5</a></li>
+              <li><a href="#" class="small" data-value="option6" tabIndex="-1"><input type="checkbox"/>&nbsp;Option 6</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row text-center">
     <div class="col-lg-1 col-md-1 col-sm-1"></div>
       <div class="col-lg-10 col-md-10 col-sm-10">
@@ -54,7 +73,7 @@
       <div class="col-lg-1 col-md-1 col-sm-1"></div>
     </div>
 
-  <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+  <div id="modal01" class="w3-modal">
     <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
     <div class="w3-modal-content w3-animate-zoom">
       <div class="modal-header ">
@@ -62,7 +81,7 @@
             <H1 class="center">{{dogName}}</H1>
             </div>
           <div>
-            <i class="fa fa-times-circle red-text" style="font-size:40pt !important" aria-hidden="true"></i>
+            <i class="fa fa-times-circle red-text" style="font-size:40pt !important" aria-hidden="true" (click)="HideModal()"></i>
           </div>
     </div>
     <div class="w3-modal-content">
