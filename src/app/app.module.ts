@@ -1,3 +1,4 @@
+import { BaseService } from './services/base.service';
 import { AuthGuard } from './auth.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA, Component } from '@angular/core';
@@ -12,7 +13,8 @@ import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { PetDeailsComponent } from './components/pet-deails/pet-deails.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
-
+import { FiltersPipe } from './pipes/filters.pipe';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     PetsComponent,
     WelcomeComponent,
     PetDeailsComponent,
-    AdminComponent
+    AdminComponent,
+    FiltersPipe,
+    HttpClientModule
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,8 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
     MDBBootstrapModule.forRoot()
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [AuthGuard],
-  bootstrap: [AppComponent]
+  providers: [AuthGuard, BaseService],
+  bootstrap: [AppComponent],
+  exports: [FiltersPipe]
 })
 export class AppModule { }
