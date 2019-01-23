@@ -10,10 +10,9 @@ import { NavabarComponent } from '../app/components/navabar/navabar.component';
 import { PetsComponent } from '../app/components/pets/pets.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
-import { PetDeailsComponent } from './components/pet-deails/pet-deails.component';
-import { AdminComponent } from './components/admin/admin.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { FiltersPipe } from './pipes/filters.pipe';
+import { AdoptionComponent } from '../app/components/adoption/adoption.component';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -23,10 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavabarComponent,
     PetsComponent,
     WelcomeComponent,
-    PetDeailsComponent,
-    AdminComponent,
     FiltersPipe,
-    HttpClientModule
+    AdoptionComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     AppRoutingModule,
     DeferLoadModule,
-
+    HttpClientModule,
     MDBBootstrapModule.forRoot()
   ],
   schemas: [NO_ERRORS_SCHEMA],

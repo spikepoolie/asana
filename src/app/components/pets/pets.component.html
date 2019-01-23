@@ -1,37 +1,42 @@
 <div class="content">
   <div class="row">
-    <div  class="col text-center bg-secondary">
-d
+    <div  class="col text-center bg-secondary"style="padding:15px;">
+      <h2 style="color: white;">Pets Available for Adoption Near You</h2>
+      <h6 style="color: white;">({{nearByLocation}})</h6>
+      <div class="row"><div class="col-lg col-md col-sm"><hr style="border: 1px solid whitesmoke;"></div></div>
+      <div class="row">
+         <div class="col-lg-1 col-md-1 col-sm-1">
+          <span style="color:white; font-size:16pt;">Filters</span>
+         </div>
+          <div class="col-lg-5 col-md-5 col-sm-5">
+              <angular2-multiselect
+                [data]="dropdownListBreed"
+                (lazyLoading)="true"
+                [(ngModel)]="selectedItemsBreed"
+                [settings]="dropdownSettingsBreed"
+                (onSelect)="onItemSelectBreed($event)"
+                (onDeSelect)="onItemDeSelectBreed($event)"
+                (onSelectAll)="onSelectAllBreed($event)"
+                (onDeSelectAll)="onDeSelectAllBreed($event)">
+              </angular2-multiselect>
+          </div>
+          <div class="col-lg-5 col-md-5 col-sm-5">
+              <angular2-multiselect
+                [data]="dropdownListGender"
+                (lazyLoading)="true"
+                [(ngModel)]="selectedItemsGender"
+                [settings]="dropdownSettingsGender"
+                (onSelect)="onItemSelectGender($event)"
+                (onDeSelect)="onItemDeSelectGender($event)"
+                (onSelectAll)="onSelectAllGender($event)"
+                (onDeSelectAll)="onDeSelectAllGender($event)">
+              </angular2-multiselect>
+          </div>
+      </div>
     </div>
   </div>
-  <div class="jumbotron text-center bg-secondary">
-    <h2 style="color: white;">Pets Available for Adoption Near You</h2>
-    <h6 style="color: white;">({{nearByLocation}})</h6>
 
-  </div>
   <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-3">
-        <angular2-multiselect
-          [data]="dropdownListBreed"
-          [(ngModel)]="selectedItemsBreed"
-          [settings]="dropdownSettingsBreed"
-          (onSelect)="onItemSelectBreed($event)"
-          (onDeSelect)="onItemDeSelectBreed($event)"
-          (onSelectAll)="onSelectAllBreed($event)"
-          (onDeSelectAll)="onDeSelectAllBreed($event)">
-        </angular2-multiselect>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-3">
-        <angular2-multiselect
-          [data]="dropdownListGender"
-          [(ngModel)]="selectedItemsGender"
-          [settings]="dropdownSettingsGender"
-          (onSelect)="onItemSelectGender($event)"
-          (onDeSelect)="onItemDeSelectGender($event)"
-          (onSelectAll)="onSelectAllGender($event)"
-          (onDeSelectAll)="onDeSelectAllGender($event)">
-        </angular2-multiselect>
-    </div>
 
   </div>
   <div class="row text-center">
@@ -66,7 +71,7 @@ d
                 <div class="puppy_details" >{{item.gender}}</div>
                 <!--Text-->
                 <button
-                  (click)="goToPets()"
+                  (click)="goToPets(item)"
                   type="button"
                   class="btn btn-md btn-warning"
                 >
@@ -85,24 +90,24 @@ d
       <div class="col-lg-1 col-md-1 col-sm-1"></div>
     </div>
 
-  <div id="modal01" class="w3-modal">
-    <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
-    <div class="w3-modal-content w3-animate-zoom">
-      <div class="modal-header ">
-            <div style="float:left">
-            <H1 class="center">{{dogName}}</H1>
+    <div id="modal01" class="w3-modal">
+        <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+        <div class="w3-modal-content w3-animate-zoom">
+            <div class="modal-header ">
+                <div style="float:left">
+                    <H1 class="center">{{dogName}}</H1>
+                </div>
+                <div>
+                    <i class="fa fa-times-circle red-text" style="font-size:40pt !important" aria-hidden="true" (click)="HideModal()"></i>
+                 </div>
             </div>
-          <div>
-            <i class="fa fa-times-circle red-text" style="font-size:40pt !important" aria-hidden="true" (click)="HideModal()"></i>
-          </div>
+            <div class="w3-modal-content">
+                <img [src]="dogImageUrl" style="width:100%;">
+            </div>
+            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-block yellow-adopt-btn">
+                  <i class="fa fa-paw black-text right_10_padding mr-10" aria-hidden="true"></i><span style="color:white; font-size:14pt;">ADOPT ME NOW</span>
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="w3-modal-content">
-      <img [src]="dogImageUrl" style="width:100%;">
-    </div>
-    <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-      <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-block yellow-adopt-btn">
-        <i class="fa fa-paw black-text right_10_padding mr-10" aria-hidden="true"></i><span style="color:white; font-size:14pt;">ADOPT ME NOW</span>
-      </button>
-    </div>
-  </div>
-</div>
