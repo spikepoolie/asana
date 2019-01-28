@@ -6,7 +6,9 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
+// importing local json instead of using http call
 import DogsJson from '../../../assets/data/dogs.json';
+
 @Component({
   selector: 'app-pets',
   templateUrl: './pets.component.html',
@@ -14,6 +16,9 @@ import DogsJson from '../../../assets/data/dogs.json';
 })
 
 export class PetsComponent implements OnInit {
+
+  // global declarations
+
   dogsJson = [];
   dogsJsonOriginal = [];
   dogImageUrl = '';
@@ -31,8 +36,6 @@ export class PetsComponent implements OnInit {
   dogs_breed = [];
   dogs_gender = [];
   response: any = [];
-  @Input() filterBy = 'all';
-
 
   constructor( private router: Router, public baseService: BaseService) { }
 
@@ -50,10 +53,13 @@ export class PetsComponent implements OnInit {
 
     this.displayDogs(this.dogsJson, true);
 
+    // Geolocation based on the user location
     this.getLocation();
     this.selectedItemsBreed = [];
     this.selectedItemsGender = [];
 
+
+    // breed filter
     this.dropdownSettingsBreed = {
       singleSelection: false,
       text: 'Select breeds',
@@ -63,6 +69,7 @@ export class PetsComponent implements OnInit {
       classes: 'pets'
     };
 
+    // gender filter
     this.dropdownSettingsGender = {
       singleSelection: false,
       text: 'Select gender',
@@ -73,6 +80,7 @@ export class PetsComponent implements OnInit {
     };
   }
 
+  // based on the filters selections, display the filtered information
   onItemSelectBreed = (item: any) => {
     const dogsFiltered = Filterutils.genericFilterOperation(DogsJson.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'breed', DogsJson.dogs);
     this.displayDogs(dogsFiltered, false);
@@ -124,6 +132,8 @@ export class PetsComponent implements OnInit {
       this.dogsImageUrl = [];
     }
 
+    // Build filters drop downs
+
     for (let i = 0; i < dogs_feed.length; i++) {
       const url = dogs_feed[i].image;
       this.dogsImageUrl[i] = {
@@ -172,8 +182,6 @@ export class PetsComponent implements OnInit {
     document.getElementById('modal01').style.display = 'block';
   }
 
-  trackByFn = (index, item) => index;
-
   HideModal = () => document.getElementById('modal01').style.display = 'none';
 
   getLocation = () => {
@@ -190,6 +198,7 @@ export class PetsComponent implements OnInit {
     });
   }
 
+  // get user coordenates and display city name and zip code
   showPosition = (position) => {
 
     const latlng = { lat: position.coords.latitude, lng: position.coords.longitude };

@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./adoption.component.scss']
 })
 export class AdoptionComponent implements OnInit {
+  // global declaration
   mydata: any;
   dogname: string;
   dogimage: string;
@@ -26,6 +27,7 @@ export class AdoptionComponent implements OnInit {
   hideModal = () => document.getElementById('modal01').style.display = 'none';
 
   ngOnInit() {
+    // get the initial value from the service to define each page the user will land
     this.mydata = this.baseService.serviceData;
     if (this.mydata === undefined) {
       this.router.navigate(['/pets']);
@@ -36,6 +38,7 @@ export class AdoptionComponent implements OnInit {
 
   }
 
+  // show modal
   showAdoptionCard = (frm: HTMLFormElement) => {
     this.name = frm.name;
     document.getElementById('modal01').style.display = 'block';

@@ -1,5 +1,7 @@
 import { any } from 'codelyzer/util/function';
 export class Filterutils {
+
+  // Generic function to handle multiple filters
   static genericFilterOperation(json: any, selectedItemsGender: any, selectedItemsBreed: any, filterType: string, originalJson: any) {
     const itemsSelected = [];
     let filtered = {};
@@ -32,7 +34,4 @@ export class Filterutils {
     }
     return filtered;
   }
-  // if(selectedItemsGender.length === 0 && selectedItemsBreed.length === 0) {
-  //   return originalJson;
-  // }
 }

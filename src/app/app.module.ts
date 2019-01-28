@@ -11,7 +11,6 @@ import { PetsComponent } from '../app/components/pets/pets.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
-import { FiltersPipe } from './pipes/filters.pipe';
 import { AdoptionComponent } from '../app/components/adoption/adoption.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -22,7 +21,6 @@ import { HttpClientModule } from '@angular/common/http';
     NavabarComponent,
     PetsComponent,
     WelcomeComponent,
-    FiltersPipe,
     AdoptionComponent
   ],
   imports: [
@@ -37,6 +35,6 @@ import { HttpClientModule } from '@angular/common/http';
   schemas: [NO_ERRORS_SCHEMA],
   providers: [AuthGuard, BaseService],
   bootstrap: [AppComponent],
-  exports: [FiltersPipe]
+  exports: []
 })
 export class AppModule { }
