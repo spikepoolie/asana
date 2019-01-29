@@ -46,16 +46,17 @@
         <div class="card-deck">
 
           <!-- Card -->
-          <div *ngFor="let item of dogsImageUrl  let i = index;" (deferLoad)="item.show = true" style="padding:20px;">
-            <ng-container *ngIf="item.show">
+          <div *ngFor="let item of dogsImageUrl  let i = index;" style="padding:20px;">
+            <ng-container>
 
               <!--Card image-->
               <div class="text-center">
+
                 <img
                   class="w3-circle w3-margin-top imgThumb"
                   [src]="item.url"
                   alt="{{item.name}}"
-                  (click)="showDogModal(item.url, item.name)"
+                  (click)="showDogModal(item)"
                 >
                 <a href="#!">
                   <div class="mask rgba-white-slight"></div>
@@ -98,14 +99,14 @@
                     <H1 class="center">{{dogName}}</H1>
                 </div>
                 <div>
-                    <i class="fa fa-times-circle red-text" style="font-size:40pt !important" aria-hidden="true" (click)="HideModal()"></i>
+                    <i class="fa fa-times-circle red-text" style="font-size:40pt !important" aria-hidden="true" (click)="HideModal('nothing')"></i>
                  </div>
             </div>
             <div class="w3-modal-content">
                 <img [src]="dogImageUrl" style="width:100%;">
             </div>
             <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-block yellow-adopt-btn">
+                <button (click)="HideModal('adoption')" type="button" class="w3-button w3-block yellow-adopt-btn">
                   <i class="fa fa-paw black-text right_10_padding mr-10" aria-hidden="true"></i><span style="color:white; font-size:14pt;">ADOPT ME NOW</span>
                 </button>
             </div>

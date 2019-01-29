@@ -1,13 +1,15 @@
+
+import { HttpClient } from '@angular/common/http';
 import { BaseService } from './../../services/base.service';
 import { Filterutils } from './../../utils/filterutils';
 import { JSDocTagName } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+
 
 // importing local json instead of using http call
-import DogsJson from '../../../assets/data/dogs.json';
+//import DogsJson from '../../../assets/data/dogs.json';
 
 @Component({
   selector: 'app-pets',
@@ -23,6 +25,8 @@ export class PetsComponent implements OnInit {
   dogsJsonOriginal = [];
   dogImageUrl = '';
   dogsImageUrl = [];
+  data: any = [];
+  dogItem: any;
   dogName = '';
   address = '';
   geoLocationErrorMessage = '';
@@ -37,7 +41,7 @@ export class PetsComponent implements OnInit {
   dogs_gender = [];
   response: any = [];
 
-  constructor( private router: Router, public baseService: BaseService) { }
+  constructor(private router: Router, public baseService: BaseService, private http: HttpClient) { }
 
   getData(): any {
     return this.baseService.serviceData;
@@ -47,11 +51,22 @@ export class PetsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.http.get('https://www.goemobile.com/asana/assets/data/dogs.json')
+      .subscribe(
+        data => {
+          this.data = { ...data };
+          this.dogsJson = this.data.dogs;
+          this.dogsJsonOriginal = this.data.dogs;
+          this.displayDogs(this.dogsJson, true);
+        }
+      );
 
-    this.dogsJson = DogsJson.dogs;
-    this.dogsJsonOriginal = DogsJson.dogs;
 
-    this.displayDogs(this.dogsJson, true);
+
+    // this.dogsJson = DogsJson.dogs;
+    // this.dogsJsonOriginal = DogsJson.dogs;
+
+    // this.displayDogs(this.dogsJson, true);
 
     // Geolocation based on the user location
     this.getLocation();
@@ -82,27 +97,27 @@ export class PetsComponent implements OnInit {
 
   // based on the filters selections, display the filtered information
   onItemSelectBreed = (item: any) => {
-    const dogsFiltered = Filterutils.genericFilterOperation(DogsJson.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'breed', DogsJson.dogs);
+    const dogsFiltered = Filterutils.genericFilterOperation(this.data.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'breed', this.dogsJsonOriginal);
     this.displayDogs(dogsFiltered, false);
   }
 
   onItemDeSelectBreed = (item: any) => {
-    const dogsFiltered = Filterutils.genericFilterOperation(DogsJson.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'breed', DogsJson.dogs);
+    const dogsFiltered = Filterutils.genericFilterOperation(this.data.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'breed', this.dogsJsonOriginal);
     this.displayDogs(dogsFiltered, false);
   }
 
   onSelectAllBreed(items: any) {
-    const dogsFiltered = Filterutils.genericFilterOperation(DogsJson.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'breed', DogsJson.dogs);
+    const dogsFiltered = Filterutils.genericFilterOperation(this.data.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'breed', this.dogsJsonOriginal);
     this.displayDogs(dogsFiltered, false);
   }
 
   onDeSelectAllBreed(items: any) {
-    const dogsFiltered = Filterutils.genericFilterOperation(DogsJson.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'breed', DogsJson.dogs);
+    const dogsFiltered = Filterutils.genericFilterOperation(this.data.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'breed', this.dogsJsonOriginal);
     this.displayDogs(dogsFiltered, false);
    }
 
   onItemSelectGender = (item: any) => {
-    const dogsFiltered = Filterutils.genericFilterOperation(DogsJson.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'gender', DogsJson.dogs);
+    const dogsFiltered = Filterutils.genericFilterOperation(this.data.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'gender', this.dogsJsonOriginal);
       this.displayDogs(dogsFiltered, false);
   }
 
@@ -111,13 +126,13 @@ export class PetsComponent implements OnInit {
       this.displayDogs(this.dogsJsonOriginal, false);
     } else {
       if ( this.selectedItemsGender.length > 0) {
-        const dogsFiltered = Filterutils.genericFilterOperation(DogsJson.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'gender', DogsJson.dogs);
+        const dogsFiltered = Filterutils.genericFilterOperation(this.data.dogs, this.selectedItemsGender, this.selectedItemsBreed, 'gender', this.dogsJsonOriginal);
         this.displayDogs(dogsFiltered, false);
      } else {
-       if (DogsJson.dogs.length === 0) {
+        if (this.data.dogs.length === 0) {
          this.displayDogs(this.dogsJsonOriginal, false);
        } else {
-         this.displayDogs(DogsJson.dogs, false);
+          this.displayDogs(this.data.dogs, false);
        }
      }
     }
@@ -145,7 +160,6 @@ export class PetsComponent implements OnInit {
         gender: dogs_feed[i].gender,
         dogid: i
       };
-
 
       const breed = dogs_feed[i].breed;
       this.dogs_breed.push(breed);
@@ -176,13 +190,19 @@ export class PetsComponent implements OnInit {
     }
   }
 
-  showDogModal = (img, dognameselected) => {
-    this.dogImageUrl = img;
-    this.dogName = dognameselected;
+  showDogModal = ( item) => {
+    this.dogImageUrl = item.url;
+    this.dogItem = item;
+    this.dogName = item.name;
     document.getElementById('modal01').style.display = 'block';
   }
 
-  HideModal = () => document.getElementById('modal01').style.display = 'none';
+  HideModal = (action) => {
+    document.getElementById('modal01').style.display = 'none';
+    if (action === 'adoption') {
+      this.goToPets(this.dogItem);
+    }
+  }
 
   getLocation = () => {
     if (navigator.geolocation) {

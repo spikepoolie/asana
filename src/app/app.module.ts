@@ -9,10 +9,10 @@ import { AppComponent } from './app.component';
 import { NavabarComponent } from '../app/components/navabar/navabar.component';
 import { PetsComponent } from '../app/components/pets/pets.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
-import { DeferLoadModule } from '@trademe/ng-defer-load';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
 import { AdoptionComponent } from '../app/components/adoption/adoption.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TextLeadPipe } from './pipes/text-lead.pipe';
 
 
 @NgModule({
@@ -21,20 +21,20 @@ import { HttpClientModule } from '@angular/common/http';
     NavabarComponent,
     PetsComponent,
     WelcomeComponent,
-    AdoptionComponent
+    AdoptionComponent,
+    TextLeadPipe
   ],
   imports: [
     BrowserModule,
     AngularMultiSelectModule,
     FormsModule,
     AppRoutingModule,
-    DeferLoadModule,
     HttpClientModule,
     MDBBootstrapModule.forRoot()
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [AuthGuard, BaseService],
   bootstrap: [AppComponent],
-  exports: []
+  exports: [TextLeadPipe]
 })
 export class AppModule { }
